@@ -21,6 +21,10 @@ export default class SectionList extends Component {
   constructor(props, context) {
     super(props, context);
 
+    this.state = {
+        selectedSectionId: null
+    };
+
     this.onSectionSelect = this.onSectionSelect.bind(this);
     this.resetSection = this.resetSection.bind(this);
     this.detectAndScrollToSection = this.detectAndScrollToSection.bind(this);
@@ -32,11 +36,15 @@ export default class SectionList extends Component {
 
     if (!fromTouch) {
       this.lastSelectedIndex = null;
+    } else {
+        this.setState({selectedSectionId: sectionId});
     }
+
   }
 
   resetSection() {
     this.lastSelectedIndex = null;
+    this.setState({selectedSectionId: null});
   }
 
   detectAndScrollToSection(e) {
@@ -114,6 +122,7 @@ export default class SectionList extends Component {
         <SectionComponent
           sectionId={section}
           title={title}
+          selectedSectionId={this.state.selectedSectionId}
         /> :
         <View
           style={styles.item}>
