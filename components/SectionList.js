@@ -66,7 +66,16 @@ export default class SectionList extends Component {
     //})
     const targetY = ev.pageY;
     const { y, width, height } = this.measure;
+    /*
+     * console.log('SCROLLER targetY: ' + targetY)
+     * console.log('SCROLLER y: ' + y)
+     * console.log('SCROLLER width: ' + width)
+     * console.log('SCROLLER height: ' + height)
+     */
     if(!y || targetY < y){
+        /*
+         * console.log('SCROLLER returning!')
+         */
       return;
     }
     let index = Math.floor((targetY - y) / height);
@@ -151,8 +160,14 @@ export default class SectionList extends Component {
       <View ref="view" style={[styles.container, this.props.style]}
         onStartShouldSetResponder={returnTrue}
         onMoveShouldSetResponder={returnTrue}
-        onResponderGrant={this.detectAndScrollToSection}
-        onResponderMove={this.detectAndScrollToSection}
+        onResponderGrant={(e) => {
+            console.log('GRANT')
+            this.detectAndScrollToSection(e)
+        }}
+        onResponderMove={(e) => {
+            console.log('MOVE')
+            this.detectAndScrollToSection(e)
+        }}
         onResponderRelease={this.resetSection}
       >
         {sections}
