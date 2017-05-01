@@ -210,6 +210,7 @@ export default class SelectableSectionsListView extends Component {
     let sectionList;
     let renderSectionHeader;
     let dataSource;
+    let initialListSize;
     let sections = Object.keys(data);
 
     if (typeof(this.props.compareFunction) === "function") {
@@ -235,6 +236,8 @@ export default class SelectableSectionsListView extends Component {
       dataSource = this.state.dataSource.cloneWithRowsAndSections(data, sections);
     }
 
+    initialListSize = dataSource._cachedRowCount
+
     const renderFooter = this.props.footer ?
       this.renderFooter :
       this.props.renderFooter;
@@ -250,7 +253,8 @@ export default class SelectableSectionsListView extends Component {
       renderFooter,
       renderHeader,
       renderRow: this.renderRow,
-      renderSectionHeader
+      renderSectionHeader,
+      initialListSize
     });
 
     props.style = void 0;
